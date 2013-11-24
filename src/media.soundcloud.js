@@ -27,11 +27,6 @@
     init: function(player, options, ready) {
       var key, _i, _len, _ref;
       _debug("initializing Soundcloud tech");
-      if (window.soundcloudTech) {
-        _debug("Soundcloud already exists... kill it!");
-        window.soundcloudTech.dispose();
-      }
-      window.soundcloudTech = this;
       this.features.fullscreenResize = true;
       this.features.volumeControl = true;
       videojs.MediaTechController.call(this, player, options, ready);
@@ -183,7 +178,7 @@
   videojs.Soundcloud.prototype.buffered = function() {
     var timePassed;
     timePassed = this.duration() * this.loadPercentageDecimal;
-    _debug("buffered " + timePassed);
+    //_debug("buffered " + timePassed);
     return videojs.createTimeRange(0, timePassed);
   };
 
@@ -283,29 +278,21 @@
    * Take care of loading the Soundcloud API
    */
   videojs.Soundcloud.prototype.loadSoundcloud = function() {
-    var checkSoundcloudApiReady,
-      _this = this;
-    _debug("loadSoundcloud");
-    if (videojs.Soundcloud.apiReady && !this.soundcloudPlayer) {
+    if(window.SC) {
       this.initWidget();
     } else {
-      if (!videojs.Soundcloud.apiLoading) {
-        /*
-        			Initiate the soundcloud tech once the API is ready
-        */
-
-        checkSoundcloudApiReady = function() {
-          if (typeof window.SC !== "undefined") {
-            videojs.Soundcloud.apiReady = true;
-            clearInterval(videojs.Soundcloud.intervalId);
-            _this.initWidget();
-            return _debug("cleared interval");
-          }
-        };
+      if(!videojs.Soundcloud._scriptInserted) {
+        videojs.Soundcloud._scriptInserted = true;
         addScriptTag("https://w.soundcloud.com/player/api.js");
-        videojs.Soundcloud.apiLoading = true;
-        videojs.Soundcloud.intervalId = setInterval(checkSoundcloudApiReady, 500);
       }
+      
+      var _this = this;
+      this._scriptPollId = setInterval(function() {
+        if(window.SC) {
+          clearInterval(_this._scriptPollId);
+          _this.initWidget();
+        }
+      });
     }
   };
 
@@ -437,5 +424,7 @@
     this.player_.error = "Soundcloud error";
     this.player_.trigger('error');
   };
-
+  
+  videojs.Soundcloud._scriptInserted = false;
+  
 }).call(this);
