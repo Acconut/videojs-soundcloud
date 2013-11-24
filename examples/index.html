@@ -14,11 +14,25 @@
     height="360"
     data-setup=''
     ></video>
+  
+  <video
+    id="myStuff2"
+    class="video-js vjs-default-skin"
+    controls
+    preload="auto"
+    width="100%"
+    height="360"
+    data-setup=''
+    ></video>
     
     <script>
-      videojs("myStuff", {
+      var s1 = videojs("myStuff", {
         techOrder: ["soundcloud"],
         src: "https://soundcloud.com/vaughan-1-1/this-is-what-crazy-looks-like"
+      });
+      var s2 = videojs("myStuff2", {
+        techOrder: ["soundcloud"],
+        src: "https://soundcloud.com/mashupgermany/mashup-germany-berlin-banquet"
       });
     </script>
 </body>
