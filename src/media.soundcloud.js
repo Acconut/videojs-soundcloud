@@ -71,17 +71,6 @@
   });
 
   /*
-   * Set up everything to use soundcloud's streaming API
-   */
-  videojs.Soundcloud.prototype.onApiReady = function() {
-    _debug("onApiReady (SC exists)");
-    if (!this.apiInitialized) {
-      this.apiInitialized = true;
-    }
-    this.initWidget();
-  };
-
-  /*
    * Destruct the tech and it's DOM elements
    */
   videojs.Soundcloud.prototype.dispose = function() {
@@ -309,7 +298,7 @@
           if (typeof window.SC !== "undefined") {
             videojs.Soundcloud.apiReady = true;
             clearInterval(videojs.Soundcloud.intervalId);
-            _this.onApiReady();
+            _this.initWidget();
             return _debug("cleared interval");
           }
         };
