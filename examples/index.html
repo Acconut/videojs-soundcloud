@@ -1,0 +1,25 @@
+<head>
+  <!-- Mandatory videojs include! -->
+  <script src="http://vjs.zencdn.net/4.2.2/video.js"></script>
+  <link href="http://vjs.zencdn.net/4.2.2/video-js.css" rel="stylesheet">
+  <script src="../src/media.soundcloud.js"></script>
+</head>
+<body>
+  <video
+    id="myStuff"
+    class="video-js vjs-default-skin"
+    controls
+    preload="auto"
+    width="100%"
+    height="360"
+    data-setup=''
+    ></video>
+    
+    <script>
+      videojs("myStuff", {
+        techOrder: ["soundcloud"],
+        soundcloudClientId: 1234,
+        src: "https://soundcloud.com/vaughan-1-1/this-is-what-crazy-looks-like"
+      });
+    </script>
+</body>
