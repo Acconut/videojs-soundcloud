@@ -20,7 +20,7 @@
    * API Track documentation: http://developers.soundcloud.com/docs/api/reference#tracks
    *
    * @param {videojs.Player} player
-   * @param {Object} options soundcloudClientId is mandatory!
+   * @param {Object} options
    * @param {Function} ready
    */
   videojs.Soundcloud = videojs.MediaTechController.extend({
@@ -44,7 +44,6 @@
           this.player_.options()[key] = options.source[key];
         }
       }
-      this.clientId = this.player_.options().soundcloudClientId;
       this.soundcloudSource = this.player_.options().src || "";
       this.scWidgetId = this.player_.id() + '_soundcloud_api';
       this.scWidgetElement = videojs.Component.prototype.createEl('iframe', {
@@ -77,9 +76,6 @@
   videojs.Soundcloud.prototype.onApiReady = function() {
     _debug("onApiReady (SC exists)");
     if (!this.apiInitialized) {
-      SC.initialize({
-        client_id: this.clientId
-      });
       this.apiInitialized = true;
     }
     this.initWidget();
@@ -318,7 +314,6 @@
           }
         };
         addScriptTag("https://w.soundcloud.com/player/api.js");
-        addScriptTag("https://connect.soundcloud.com/sdk.js");
         videojs.Soundcloud.apiLoading = true;
         videojs.Soundcloud.intervalId = setInterval(checkSoundcloudApiReady, 500);
       }
