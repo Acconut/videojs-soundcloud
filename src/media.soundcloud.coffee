@@ -241,8 +241,7 @@ videojs.Soundcloud.prototype.isSoundcloudUrl = (url)->
 	uri = new URI url
 
 	switch uri.host
-		when "www.soundcloud.com"
-		when "soundcloud.com"
+		when "www.soundcloud.com", "soundcloud.com"
 			debug "Can play '#{url}'"
 			return true
 		else
