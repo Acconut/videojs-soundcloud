@@ -3,7 +3,6 @@ videojs-soundcloud
 
 A [videojs/video-js](https://github.com/videojs/video.js) plugin to support soundcloud links e.g https://soundcloud.com/vaughan-1-1/this-is-what-crazy-looks-like
 
-It depends on [jwagener/uri.js](https://github.com/jwagener/uri.js) for checking URIs.
 
 How to use (with coffeescript)
 ==============================

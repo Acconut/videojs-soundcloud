@@ -275,15 +275,7 @@
    * @param url {String}
    */
   videojs.Soundcloud.prototype.isSoundcloudUrl = function(url) {
-    var uri = new URI(url);
-    switch (uri.host) {
-      case "www.soundcloud.com":
-      case "soundcloud.com":
-        _debug("Can play '" + url + "'");
-        return true;
-      default:
-        return false;
-    }
+    return /^(https?:\/\/)?(www.)?soundcloud.com\//i.test(url);
   };
 
   /*
